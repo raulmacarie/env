@@ -505,7 +505,7 @@ module.exports = function (grunt) {
             'bower:tmp',            
             'autoprefixer',
             'connect:qunit',
-            'qunit',
+            // 'qunit',
             'watch'
         ]);
     });
