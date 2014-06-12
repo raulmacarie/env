@@ -1,0 +1,14 @@
+{
+  "name": "env",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "",
+    "jquery": "",
+    "backbone": "",
+    "react": "",
+    "requirejs": "",
+    "underscore": "",
+    "qunit": "~1.14.0"
+  },
+  "devDependencies": {}
+}
