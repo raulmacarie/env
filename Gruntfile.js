@@ -50,7 +50,7 @@ module.exports = function (grunt) {
             },
             typescript: {
                 files: ['<%= config.app %>/scripts/**/*.ts'],
-                tasks: ['typescript:tmp']
+                tasks: ['typescript:tmp', 'requirejs:tmp']
             },
             react: {
                 files: ['<%= config.app %>/scripts/**/*.jsx'],
@@ -70,6 +70,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= config.app %>/{,*/}*.html',
+                    '<%= config.app %>/{,*/}*.*',
                     '.tmp/styles/{,*/}*.css',
                     '<%= config.app %>/images/{,*/}*'
                 ]

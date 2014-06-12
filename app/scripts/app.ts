@@ -1,26 +1,35 @@
-/* Globals - jQuery, $, Backbone, _ */
+/// <reference path="vendor/backbone/backbone.d.ts" />
+/// <reference path="vendor/underscore/underscore.d.ts" />
 
-// <reference path="vendor/jquery/jquery.d.ts"/>
-// <reference path="vendor/backbone/backbone.d.ts"/>
+export class AppRouter extends Backbone.Router {
 
+    routes: any;
+    constructor(options?: Backbone.RouterOptions) {
 
-//import your classes
-import CommentsModel = require("models/Comments");
-//import $ = require("jquery");
+        this.routes = {
+            "": "home",
+            "about": "about",
+            "contact": "contact"
+        }
 
-//declare a variable representing underscore so this typescript file will compile without errors
-// declare var _: any;
+        super(options);
+    }
 
-//initilize the backbone module
-var comments:Array<CommentsModel.Comment> = [],
-    i: number;
-    
-// Hardcoded population of comments array - should come from the server
-for (i = 0; i < 10; i++) {
-    comments[i] = new CommentsModel.Comment();
-    comments[i].initialize({ name: "Poster " + i, date: new Date(), text: "Poster " + i + " said this comment"});
+    initialize() {
+        // can put more init code here to run after constructor
+    }
+
+    home() {
+        console.log("home");
+    }
+    about() {
+        console.log("about");
+    }
+    contact() {
+        console.log("contact");
+    }
 }
 
-require(['scripts/views/comments'], function (CommentsView) {
-    CommentsView.load(comments);
-});
+var app_router = new AppRouter();
+
+Backbone.history.start();
