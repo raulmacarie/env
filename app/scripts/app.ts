@@ -3,20 +3,22 @@
 
 export class AppRouter extends Backbone.Router {
 
-    routes: any;
     constructor(options?: Backbone.RouterOptions) {
 
-        this.routes = {
-            "": "home",
-            "about": "about",
-            "contact": "contact"
-        }
-
         super(options);
+
     }
 
     initialize() {
         // can put more init code here to run after constructor
+    }
+
+    routes() { 
+        return {
+                "":"home", 
+                "about":"about",
+                "contact": "contact"
+            };
     }
 
     home() {
