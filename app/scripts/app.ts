@@ -1,5 +1,7 @@
-/// <reference path="vendor/backbone/backbone.d.ts" />
-/// <reference path="vendor/underscore/underscore.d.ts" />
+/// <reference path="reference.ts" />
+
+import modelView = require('BView');
+export class TodoView extends modelView.BView { }
 
 export class AppRouter extends Backbone.Router {
 
@@ -22,6 +24,8 @@ export class AppRouter extends Backbone.Router {
     }
 
     home() {
+        var view = new TodoView();
+        view.render();
         console.log("home");
     }
     about() {

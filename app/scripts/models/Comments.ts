@@ -1,7 +1,4 @@
-/* Globals - jQuery, $, Backbone, _ */
-
-// <reference path="../vendor/jquery/jquery.d.ts"/>
-/// <reference path="../vendor/backbone/backbone.d.ts"/>
+///<reference path="../reference.ts"/>
 
 export class Comment extends Backbone.Model  {
     // Default attributes for the todo.

@@ -14,7 +14,8 @@ import CommentsModel = require("models/Comments");
 //initilize the backbone module
 var comments:Array<CommentsModel.Comment> = [],
 	i: number;
-	
+
+console.log('here');
 // Hardcoded population of comments array - should come from the server
 for (i = 0; i < 10; i++) {
 	comments[i] = new CommentsModel.Comment();
