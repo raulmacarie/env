@@ -267,7 +267,7 @@ module.exports = function (grunt) {
                 basePath: '<%= config.app %>/scripts',
                 comments: true,
                 module: 'amd',
-                sourceMap: true
+                // sourceMap: true
             },
             amd: {
                 src: ['<%= config.app %>/scripts/**/*.ts'],

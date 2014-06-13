@@ -1,34 +1,29 @@
 /// <reference path="vendor/require/require.d.ts" />
 
-(()=> {
-    require.config({
+(()=>{
+
+    requirejs.config({
         paths: {
         },
+
         shim: {
+            jquery: {
+                exports: '$'
+            },
+
             underscore: {
                 exports: '_'
             },
-            bootstrap: {
-                deps: [
-                'jquery'
-                ],
-                exports: '$.fn.popover'
-            },
-            backbone: {
-                deps: [
-                'underscore',
-                'jquery',
-                'bootstrap'
-                ],
-                exports: 'Backbone'
-            }
-        },
-        packages: [
 
-        ]
+            backbone: {
+                deps: ['underscore', 'jquery'],
+                exports: 'Backbone'
+            },
+        },
     });
 
-    require(["app"], function(App){
-	//App.initialize();
-});
-})()
+    require(["backbone", "app"],
+        ($, _, Backbone, app) => {
+            // app.run();
+        });
+})();
