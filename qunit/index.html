@@ -9,8 +9,15 @@
   <script>
     QUnit.config.autostart = false;
   </script>
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="../bower_components/requirejs/require.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 
-  <script data-main="/scripts/config" src="../bower_components/requirejs/require.js"></script> 
+  <!-- build:js({app,.tmp}) scripts/main.js -->
+      <script src="scripts/config.js"></script>
+  <!-- endbuild -->
   <script>
     window.requireTestMode = true;
     require.config({
@@ -24,5 +31,6 @@
   <div id="qunit-fixture">
     <!-- fixtures go here -->
   </div>
+  <div id="canvas"></div>
 </body>
 </html>

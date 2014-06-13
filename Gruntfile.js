@@ -46,20 +46,23 @@ module.exports = function (grunt) {
                 tasks: ['test:watch']
             },
             gruntfile: {
-                files: ['Gruntfile.js']
+                files: ['Gruntfile.js'],
+                options: {
+                    reload: true
+                }
             },
             typescript: {
                 files: ['<%= config.app %>/scripts/**/*.ts'],
-                tasks: ['typescript:tmp', 'bower:tmp','requirejs:tmp']
+                tasks: ['typescript:tmp', 'bower:tmp', 'requirejs:tmp']
             },
             react: {
                 files: ['<%= config.app %>/scripts/**/*.jsx'],
                 tasks: ['react:tmp']
             },            
-            sass: {
-                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['sass:server', 'autoprefixer']
-            },
+            // sass: {
+            //     files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+            //     tasks: ['sass:server', 'autoprefixer']
+            // },
             styles: {
                 files: ['<%= config.app %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
@@ -173,35 +176,40 @@ module.exports = function (grunt) {
         },
 
         qunit: {
-          all: ['qunit/*.html']
+            all: {
+                options:{
+                    timeout: 5000,
+                    urls: ['http://localhost:9001/index.html']
+                }
+            }
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
-        sass: {
-            options: {
-                includePaths: [
-                    'bower_components'
-                ]
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.app %>/styles',
-                    src: ['*.scss'],
-                    dest: '.tmp/styles',
-                    ext: '.css'
-                }]
-            },
-            server: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= config.app %>/styles',
-                    src: ['*.scss'],
-                    dest: '.tmp/styles',
-                    ext: '.css'
-                }]
-            }
-        },
+        // sass: {
+        //     options: {
+        //         includePaths: [
+        //             'bower_components'
+        //         ]
+        //     },
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= config.app %>/styles',
+        //             src: ['*.scss'],
+        //             dest: '.tmp/styles',
+        //             ext: '.css'
+        //         }]
+        //     },
+        //     server: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= config.app %>/styles',
+        //             src: ['*.scss'],
+        //             dest: '.tmp/styles',
+        //             ext: '.css'
+        //         }]
+        //     }
+        // },
 
         // Add vendor prefixed styles
         autoprefixer: {
@@ -461,7 +469,7 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                'sass:server',
+                // 'sass:server',
                 'copy:styles'
             ],
             test: [
@@ -497,17 +505,17 @@ module.exports = function (grunt) {
 
     //start a qunit test
     grunt.registerTask('qtest', function (target) {
-
         grunt.task.run([
             'clean:server',
             'concurrent:server',
             'react:tmp',
             'typescript:tmp',
-            'bower:tmp',            
+            'bower:tmp', 
+            'requirejs:tmp',           
             'autoprefixer',
             'connect:qunit',
-            // 'qunit',
-            'watch'
+            'qunit',
+            'watch'           
         ]);
     });
 
