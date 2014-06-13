@@ -30,7 +30,7 @@ export class BView extends Backbone.View {
 
     // Re-render the contents of the todo item.
     render() {
-        require(['views/comments'], function (CommentsView) {
+        require(['scripts/views/comments'], function (CommentsView) {
             CommentsView.load(comments);
         });
         return this;
