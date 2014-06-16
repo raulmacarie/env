@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+console.log('comments.jsx');
+
 define(["react", "underscore"], function(React, _) {
     var Comment = React.createClass({
       render: function() {
@@ -22,7 +24,7 @@ define(["react", "underscore"], function(React, _) {
     var CommentList = React.createClass({
       render: function() {
         var commentNodes = this.props.data.map(function (comment) {
-          return <Comment author={comment.attributes.name} date={comment.attributes.date}>{comment.attributes.text}</Comment>;
+          return <Comment key={comment.attributes.key} author={comment.attributes.name} date={comment.attributes.date}>{comment.attributes.text}</Comment>;
         });
         return (
           <div className="commentList">

@@ -10,6 +10,7 @@
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -38,12 +39,13 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/requirejs/require.js"></script>
+        
         <!-- endbower -->
         <!-- endbuild -->
 
+        <script data-main="scripts/config" src="../bower_components/requirejs/require.js"></script>
+
         <!-- build:js({app,.tmp}) scripts/main.js -->
-            <script src="scripts/config.js"></script>
         <!-- endbuild -->
 </body>
 </html>

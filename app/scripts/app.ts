@@ -1,5 +1,7 @@
 /// <reference path="reference.ts" />
 
+console.log('app');
+
 import modelView = require('BView');
 export class TodoView extends modelView.BView { }
 
@@ -22,11 +24,11 @@ export class AppRouter extends Backbone.Router {
                 "contact": "contact"
             };
     }
-
+    //test
     home() {
         var view = new TodoView();
         view.render();
-        //console.log("home");
+        console.log("home");
     }
     about() {
         console.log("about");

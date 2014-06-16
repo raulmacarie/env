@@ -2,6 +2,8 @@
 
 // The DOM element for a todo item...
 
+console.log('BView');
+
 import nsModel = require('models/Comments');
 export class CommentsModel extends nsModel.Comment {}
 
@@ -11,7 +13,7 @@ var comments:Array<CommentsModel> = [],
 // Hardcoded population of comments array - should come from the server
 for (i = 0; i < 10; i++) {
     comments[i] = new CommentsModel();
-    comments[i].initialize({ name: "Poster " + i, date: new Date(), text: "Poster " + i + " said this comment"});
+    comments[i].initialize({ "key": i, name: "Poster " + i, date: new Date(), text: "Poster " + i + " said this comment"});
 }
 
 //export class CommentsModel extends nsModel.Comment { }
@@ -30,7 +32,7 @@ export class BView extends Backbone.View {
 
     // Re-render the contents of the todo item.
     render() {
-        require(['scripts/views/comments'], function (CommentsView) {
+        require(['views/comments'], function (CommentsView) {
             CommentsView.load(comments);
         });
         return this;

@@ -1,29 +1,42 @@
 /// <reference path="vendor/require/require.d.ts" />
 
-(()=>{
-
     requirejs.config({
+        urlArgs: "bust=" + (new Date()).getTime(),
         paths: {
+            backbone: "../../bower_components/backbone/backbone",
+            bootstrap: "../../bower_components/bootstrap/dist/js/bootstrap",
+            jquery: "../../bower_components/jquery/dist/jquery",
+            modernizr: "../../bower_components/modernizr/modernizr",
+            qunit: "../../bower_components/qunit/qunit/qunit",
+            react: "../../bower_components/react/react",
+            requirejs: "../../bower_components/requirejs/require",
+            underscore: "../../bower_components/underscore/underscore"
         },
-
         shim: {
             jquery: {
-                exports: '$'
+                exports: "$"
             },
-
             underscore: {
-                exports: '_'
+                exports: "_"
             },
-
             backbone: {
-                deps: ['underscore', 'jquery'],
-                exports: 'Backbone'
-            },
+                deps: [
+                    "underscore",
+                    "jquery"
+                ],
+                exports: "Backbone"
+            }
         },
+        packages: [
+    
+        ]
     });
 
-    require(["backbone", "app"],
-        ($, _, Backbone, app) => {
-            // app.run();
-        });
-})();
+    require(["backbone", "app"], function ($, _, Backbone, app) {
+        console.log('config');
+    });
+
+    // require(["backbone", "app"],
+    //     ($, _, Backbone, app) => {
+    //         console.log('config');
+    //     });

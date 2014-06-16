@@ -30,6 +30,10 @@ module.exports = function (grunt) {
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
+            options: {
+                nospawn: true,
+                livereload: true,
+            },
             bower: {
                 files: ['bower.json'],
                 tasks: ['bowerInstall']
@@ -37,9 +41,6 @@ module.exports = function (grunt) {
             js: {
                 files: ['<%= config.app %>/scripts/{,*/}*.js'],
                 tasks: ['jshint'],
-                options: {
-                    livereload: true
-                }
             },
             jstest: {
                 files: ['test/spec/{,*/}*.js'],
@@ -47,22 +48,19 @@ module.exports = function (grunt) {
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
-                options: {
-                    reload: true
-                }
             },
             typescript: {
                 files: ['<%= config.app %>/scripts/**/*.ts'],
-                tasks: ['typescript:tmp', 'bower:tmp', 'requirejs:tmp']
+                tasks: ['typescript:tmp']
             },
             react: {
                 files: ['<%= config.app %>/scripts/**/*.jsx'],
                 tasks: ['react:tmp']
             },            
-            // sass: {
-            //     files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-            //     tasks: ['sass:server', 'autoprefixer']
-            // },
+            sass: {
+                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+                tasks: ['sass:server', 'autoprefixer']
+            },
             styles: {
                 files: ['<%= config.app %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
@@ -72,10 +70,11 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
+                    'qunit/{,*/}*',
                     '<%= config.app %>/{,*/}*.html',
                     '<%= config.app %>/{,*/}*.*',
                     '.tmp/styles/{,*/}*.css',
-                    '<%= config.app %>/images/{,*/}*'
+                    '<%= config.app %>/images/{,*/}*',
                 ]
             }
         },
@@ -104,6 +103,7 @@ module.exports = function (grunt) {
                 options: {
                     open: true,
                     port: 9001,
+                    livereload: 35729,
                     middleware: function(connect) {
                         return [
                             connect.static('.tmp'),
@@ -185,31 +185,31 @@ module.exports = function (grunt) {
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
-        // sass: {
-        //     options: {
-        //         includePaths: [
-        //             'bower_components'
-        //         ]
-        //     },
-        //     dist: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: '<%= config.app %>/styles',
-        //             src: ['*.scss'],
-        //             dest: '.tmp/styles',
-        //             ext: '.css'
-        //         }]
-        //     },
-        //     server: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: '<%= config.app %>/styles',
-        //             src: ['*.scss'],
-        //             dest: '.tmp/styles',
-        //             ext: '.css'
-        //         }]
-        //     }
-        // },
+        sass: {
+            options: {
+                includePaths: [
+                    'bower_components'
+                ]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/styles',
+                    src: ['*.scss'],
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
+            },
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/styles',
+                    src: ['*.scss'],
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
+            }
+        },
 
         // Add vendor prefixed styles
         autoprefixer: {
@@ -304,16 +304,16 @@ module.exports = function (grunt) {
             },
 
             tmp: {
-                rjsConfig: '.tmp/scripts/config.js'
+                rjsConfig: '<%= config.app %>/scripts/config.ts'
             }
         },
 
         requirejs: {
             dist: {
                 options: {
-                    baseUrl        : '<%= config.app %>/scripts/',
+                    baseUrl        : '<%= config.dist %>/scripts/',
                     name           : 'main',
-                    mainConfigFile : '<%= config.app %>/scripts/main.js',
+                    mainConfigFile : '<%= config.dist %>/scripts/main.js',
                     out            : '.tmp/concat/scripts/main.js',
                     removeCombined : true
                 }
@@ -324,7 +324,9 @@ module.exports = function (grunt) {
                     name           : 'config',
                     mainConfigFile : '.tmp/scripts/config.js',
                     out            : '.tmp/scripts/config.js',
-                    removeCombined : true
+                    removeCombined : true,
+                    //preserveLicenseComments: false,
+                    optimize: "none"
                 }
             }
         },        
@@ -432,12 +434,6 @@ module.exports = function (grunt) {
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*'
                     ]
-                }, {
-                    expand: true,
-                    dot: true,
-                    cwd: '.',
-                    src: ['bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'],
-                    dest: '<%= config.dist %>'
                 }]
             },
             styles: {
@@ -469,7 +465,7 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                // 'sass:server',
+                'sass:server',
                 'copy:styles'
             ],
             test: [
@@ -494,9 +490,9 @@ module.exports = function (grunt) {
             'clean:server',
             'concurrent:server',
             'react:tmp',
+            // 'bower:tmp', 
             'typescript:tmp',
-            'bower:tmp', 
-            'requirejs:tmp',           
+            // 'requirejs:tmp',           
             'autoprefixer',
             'connect:livereload',
             'watch'
@@ -511,7 +507,7 @@ module.exports = function (grunt) {
             'react:tmp',
             'typescript:tmp',
             'bower:tmp', 
-            'requirejs:tmp',           
+            // 'requirejs:tmp',           
             'autoprefixer',
             'connect:qunit',
             'qunit',

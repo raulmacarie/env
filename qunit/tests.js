@@ -28,7 +28,7 @@ define(function() {
    * });
    */
 
-  module('jQuery');
+  module('QUnit Test Demo');
 
   test('is a function', function() {
     expect(1);
@@ -39,6 +39,18 @@ define(function() {
     });
   });
 
+  test( "a basic test example", function( assert ) {
+      var value = "hello";
+      assert.equal( value, "hello", "We expect value to be hello" );
+    });
 
+
+  asyncTest("abcd", 1, function () {
+    setTimeout(function () {
+        QUnit.start();
+        //console.log(nsModel);
+        ok(true, "always fine");
+    }, 10);
+  });
 
 });
