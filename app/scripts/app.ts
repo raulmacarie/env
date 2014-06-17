@@ -28,7 +28,7 @@ export class AppRouter extends Backbone.Router {
     home() {
         var view = new TodoView();
         view.render();
-        console.log("home");
+        console.log("home1");
     }
     about() {
         console.log("about");

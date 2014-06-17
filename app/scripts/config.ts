@@ -1,6 +1,6 @@
-/// <reference path="vendor/require/require.d.ts" />
+(()=>{
 
-    requirejs.config({
+    require.config({
         urlArgs: "bust=" + (new Date()).getTime(),
         paths: {
             backbone: "../../bower_components/backbone/backbone",
@@ -32,11 +32,7 @@
         ]
     });
 
-    require(["backbone", "app"], function ($, _, Backbone, app) {
-        console.log('config');
-    });
-
-    // require(["backbone", "app"],
-    //     ($, _, Backbone, app) => {
-    //         console.log('config');
-    //     });
+    require(["jquery", "underscore", "backbone", "app"],
+        ($, _, Backbone, app) => {
+        });
+})();

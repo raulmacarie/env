@@ -325,7 +325,7 @@ module.exports = function (grunt) {
                     mainConfigFile : '.tmp/scripts/config.js',
                     out            : '.tmp/scripts/config.js',
                     removeCombined : true,
-                    //preserveLicenseComments: false,
+                    preserveLicenseComments: false,
                     optimize: "none"
                 }
             }
@@ -506,7 +506,7 @@ module.exports = function (grunt) {
             'concurrent:server',
             'react:tmp',
             'typescript:tmp',
-            'bower:tmp', 
+            // 'bower:tmp', 
             // 'requirejs:tmp',           
             'autoprefixer',
             'connect:qunit',
