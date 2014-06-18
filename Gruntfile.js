@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             options: {
-                nospawn: true,
+                nospawn: false,
                 livereload: true,
             },
             bower: {
@@ -326,7 +326,7 @@ module.exports = function (grunt) {
                     out            : '.tmp/scripts/config.js',
                     removeCombined : true,
                     preserveLicenseComments: false,
-                    optimize: "none"
+                    // optimize: "none"
                 }
             }
         },        
@@ -491,12 +491,23 @@ module.exports = function (grunt) {
             'concurrent:server',
             'react:tmp',
             // 'bower:tmp', 
-            'typescript:tmp',
-            // 'requirejs:tmp',           
+            'typescript:tmp'
+        ]);
+
+        if (target === "minify") {
+            return grunt.task.run([
+                'requirejs:tmp',
+                'autoprefixer',
+                'connect:livereload',
+                'watch'
+                ]);
+        }else{
+            grunt.task.run([
             'autoprefixer',
             'connect:livereload',
             'watch'
-        ]);
+            ])
+        }
     });
 
     //start a qunit test

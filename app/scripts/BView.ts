@@ -1,7 +1,5 @@
 ﻿///<reference path="reference.ts"/>
 
-// The DOM element for a todo item...
-
 console.log('BView');
 
 import nsModel = require('models/Comments');

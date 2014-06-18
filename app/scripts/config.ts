@@ -1,7 +1,7 @@
 (()=>{
 
     require.config({
-        urlArgs: "bust=" + (new Date()).getTime(),
+        // urlArgs: "bust=" + (new Date()).getTime(),
         paths: {
             backbone: "../../bower_components/backbone/backbone",
             bootstrap: "../../bower_components/bootstrap/dist/js/bootstrap",

@@ -1,4 +1,4 @@
-define(function() { 
+define(['models/Comments', 'views/comments'],function(Comments, comments) { 
   QUnit.start();
   /*
     ======== A Handy Little QUnit Reference ========
@@ -28,7 +28,7 @@ define(function() {
    * });
    */
 
-  module('QUnit Test Demo 1');
+  module('simple test');
 
   test('is a function', function() {
     expect(1);
@@ -43,4 +43,21 @@ define(function() {
       var value = "hello";
       assert.equal( value, "hello", "We expect value to be hello" );
     });
+
+  module('backbone test');
+  test("a backbone module test", 2, function() {
+    var model = new Comments.Comment();
+    model.set('email', 'test');
+    ok(Comments, "It works")
+    equal( model.get("email"), "test", "email is correct!" );  
+    //model.set('test');
+  });
+
+  module('react test');
+  test("a react view test", 1, function() {
+    console.log(comments);
+    ok(comments, "It works")
+    //equal( model.get("email"), "test", "email is correct!" );  
+    //model.set('test');
+  })  
 });

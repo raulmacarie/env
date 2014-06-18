@@ -2,7 +2,7 @@
 
 console.log('app');
 
-import modelView = require('BView');
+import modelView = require("BView");
 export class TodoView extends modelView.BView { }
 
 export class AppRouter extends Backbone.Router {
