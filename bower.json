@@ -10,7 +10,8 @@
     "underscore": "",
     "qunit": "~1.14.0",
     "modernizr": "~2.8.2",
-    "almond": "~0.2.9"
+    "almond": "~0.2.9",
+    "backbone.localstorage": "~1.1.7"
   },
   "devDependencies": {}
 }

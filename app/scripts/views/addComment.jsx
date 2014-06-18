@@ -3,7 +3,7 @@
 console.log('comments.jsx');
 
 define(["react", "underscore"], function(React, _) {
-    var Comment = React.createClass({
+    var addComment = React.createClass({
       render: function() {
         //{date.toTimeString() + " " + date.toDateString()}
         var date = this.props.date

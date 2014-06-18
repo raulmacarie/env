@@ -10,6 +10,7 @@
             qunit: "../../bower_components/qunit/qunit/qunit",
             react: "../../bower_components/react/react",
             requirejs: "../../bower_components/requirejs/require",
+            localstorage: "../../bower_components/backbone.localstorage/backbone.localStorage",
             underscore: "../../bower_components/underscore/underscore"
         },
         shim: {
@@ -19,10 +20,15 @@
             underscore: {
                 exports: "_"
             },
+            // localstorage: {
+            //     deps: ['backbone'],
+            //     exports: 'LocalStorage'
+            // },
             backbone: {
                 deps: [
                     "underscore",
-                    "jquery"
+                    "jquery",
+                    //"localstorage"
                 ],
                 exports: "Backbone"
             }
@@ -32,7 +38,7 @@
         ]
     });
 
-    require(["jquery", "underscore", "backbone", "app"],
-        ($, _, Backbone, app) => {
+    require(["backbone", "localstorage", "app"],
+        (Backbone, LocalStorage, app) => {
         });
 })();

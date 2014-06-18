@@ -7,13 +7,15 @@ export class Comment extends Backbone.Model  {
     // Default attributes for the todo.
     defaults() {
  	return {
- 		"name"      : "John Smith",
-    	"email"     : "example@domain.com",
-    	"telephone" : "555-555-5555"
+ 		'name' : 'New Post',
+    	'date' : '',
+    	'post' : ''
     	};
     }
 
-    initialize(obj) {
-    	this.set(obj);
+    initialize() {
+    	if (!this.get('name')) {
+            this.set({ 'name': this.defaults().name });
+        }
     }
 };

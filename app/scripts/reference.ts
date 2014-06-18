@@ -6,3 +6,4 @@
 /// <reference path="vendor/require/require.d.ts" />
 /// <reference path="vendor/backbone/backbone.d.ts" />
 /// <reference path="vendor/underscore/underscore.d.ts" />
+/// <reference path="vendor/backbone.localStorage/backbone.localStorage.d.ts" />

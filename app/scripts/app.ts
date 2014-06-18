@@ -20,7 +20,7 @@ export class AppRouter extends Backbone.Router {
     routes() { 
         return {
                 "":"home", 
-                "about":"about",
+                "add":"add",
                 "contact": "contact"
             };
     }
@@ -30,8 +30,8 @@ export class AppRouter extends Backbone.Router {
         view.render();
         console.log("home1");
     }
-    about() {
-        console.log("about");
+    add() {
+        console.log("add");
     }
     contact() {
         console.log("contact");

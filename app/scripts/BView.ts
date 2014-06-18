@@ -1,18 +1,17 @@
 ﻿///<reference path="reference.ts"/>
 
+// The DOM element for a todo item...
+
 console.log('BView');
 
-import nsModel = require('models/Comments');
-export class CommentsModel extends nsModel.Comment {}
+import nsCollection = require('collection/Comments');
+export class CommentsCollection extends nsCollection.Comments {}
 
-var comments:Array<CommentsModel> = [],
-    i: number;
-    
 // Hardcoded population of comments array - should come from the server
-for (i = 0; i < 10; i++) {
-    comments[i] = new CommentsModel();
-    comments[i].initialize({ "key": i, name: "Poster " + i, date: new Date(), text: "Poster " + i + " said this comment"});
-}
+// for (i = 0; i < 10; i++) {
+//     comments[i] = new CommentsModel();
+//     comments[i].initialize({ "key": i, name: "Poster " + i, date: new Date(), text: "Poster " + i + " said this comment"});
+// }
 
 //export class CommentsModel extends nsModel.Comment { }
 
@@ -22,17 +21,35 @@ export class BView extends Backbone.View {
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
 
+    comments: CommentsCollection;
+
     constructor(options?) {
         //... is a list tag.
         super(options);
 
+
+        var exp = {
+            'name' : 'New Post',
+            'date' : 'date',
+            'text' : 'test'            
+        }
+        this.comments = new nsCollection.Comments();
+        this.comments.fetch();
+        if (this.comments.length < 5) {
+            this.comments.create(exp);
+        }
+        
+        // this.comments.add(exp);
     }
 
     // Re-render the contents of the todo item.
     render() {
-        require(['views/comments'], function (CommentsView) {
-            CommentsView.load(comments);
-        });
+        var _this = this;
+        if (this.comments.length !== 0) {
+            require(['views/comments'], function (CommentsView) {
+                CommentsView.load(_this.comments);
+            });
+        }
         return this;
     }
 

@@ -55,7 +55,6 @@ define(['models/Comments', 'views/comments'],function(Comments, comments) {
 
   module('react test');
   test("a react view test", 1, function() {
-    console.log(comments);
     ok(comments, "It works")
     //equal( model.get("email"), "test", "email is correct!" );  
     //model.set('test');
