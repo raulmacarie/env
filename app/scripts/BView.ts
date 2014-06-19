@@ -23,23 +23,12 @@ export class BView extends Backbone.View {
 
     comments: CommentsCollection;
 
-    constructor(options?) {
+    constructor(options?:any) {
         //... is a list tag.
         super(options);
 
-
-        var exp = {
-            'name' : 'New Post',
-            'date' : 'date',
-            'text' : 'test'            
-        }
         this.comments = new nsCollection.Comments();
-        this.comments.fetch();
-        if (this.comments.length < 5) {
-            this.comments.create(exp);
-        }
-        
-        // this.comments.add(exp);
+        this.comments.fetch();        
     }
 
     // Re-render the contents of the todo item.

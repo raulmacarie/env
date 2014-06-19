@@ -32,6 +32,9 @@ export class AppRouter extends Backbone.Router {
     }
     add() {
         console.log("add");
+        require(['views/addComment'], function (addComment) {
+            addComment.load();
+        });
     }
     contact() {
         console.log("contact");

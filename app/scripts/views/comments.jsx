@@ -2,21 +2,26 @@
 
 console.log('comments.jsx');
 
-define(["react", "underscore"], function(React, _) {
+define(["react", "underscore", "localstorage"], function(React, _, localstorage, Comments) {
     var Comment = React.createClass({
+      Destroy: function() {
+          this.props.onDestroy();       
+        },
       render: function() {
+        console.log(this.props);
         //{date.toTimeString() + " " + date.toDateString()}
-        var date = this.props.date
+        var date = this.props.comment.get('date');
         return (
           <div className="comment">
             <h2 className="commentAuthor">
-              {this.props.author}
+              {this.props.comment.get('name')}
             </h2>
             <h3 className="commentDate">
               {date}
             </h3>
-            {this.props.children}
+            {this.props.comment.get('text')}
             <hr />
+            <button className="destroy" onClick={this.Destroy} >Del</button>
           </div>
         );
       }
@@ -26,7 +31,7 @@ define(["react", "underscore"], function(React, _) {
       render: function() {
 
         var commentNodes = this.props.data.map(function (comment) {
-          return <Comment key={comment.attributes.id} author={comment.attributes.name} date={comment.attributes.date}>{comment.attributes.text}</Comment>;
+          return <Comment key={comment.get('id')} comment={comment} onDestroy={comment.destroy.bind(comment)}/>;
         });
         return (
           <div className="commentList">
@@ -36,7 +41,26 @@ define(["react", "underscore"], function(React, _) {
       }
     });
 
+    var BackboneMixin = {
+        componentDidMount: function () {
+
+          this.getBackboneCollections().forEach(function (model) {
+            model.on('add remove change', this.forceUpdate.bind(this, null));
+          }, this);
+        },
+
+        componentWillUnmount: function () {
+          this.getBackboneCollections().forEach(function (model) {
+            model.off(null, null, this);
+          }, this);
+        }
+      };
+
     var CommentBox = React.createClass({
+      mixins: [BackboneMixin],
+      getBackboneCollections: function () {
+        return [this.props.data];
+      },
       render: function() {
         return (
           <div className="commentBox">
@@ -50,7 +74,7 @@ define(["react", "underscore"], function(React, _) {
     return {
         load: function(data) {
             React.renderComponent(
-                <CommentBox data={data.models} />,
+                <CommentBox data={data} />,
                 document.getElementById('canvas')
             );
         }

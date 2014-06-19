@@ -1,56 +1,52 @@
 /** @jsx React.DOM */
 
-console.log('comments.jsx');
+console.log('addComment.jsx');
 
-define(["react", "underscore"], function(React, _) {
+define(["react", "underscore", "collection/Comments", "app"], function(React, _, Comments, Router) {
+  
     var addComment = React.createClass({
-      render: function() {
-        //{date.toTimeString() + " " + date.toDateString()}
-        var date = this.props.date
-        return (
-          <div className="comment">
-            <h2 className="commentAuthor">
-              {this.props.author}
-            </h2>
-            <h3 className="commentDate">
-              {date}
-            </h3>
-            {this.props.children}
-            <hr />
-          </div>
-        );
-      }
-    });
+      getInitialState: function() {
+        return {name:'',text:'', postDate:''}
+      },
+      onChangeName: function(e) {
+        this.setState({name:e.target.value})
+      },
+      onChangeText: function(e) {
+        this.setState({text:e.target.value})
+      },
+      handleSubmit: function(e) {
+        e.preventDefault();
+        var currentDate = new Date();
 
-    var CommentList = React.createClass({
-      render: function() {
+        comments = new Comments.Comments();
+        router = new Router.AppRouter();
 
-        var commentNodes = this.props.data.map(function (comment) {
-          return <Comment key={comment.attributes.id} author={comment.attributes.name} date={comment.attributes.date}>{comment.attributes.text}</Comment>;
-        });
-        return (
-          <div className="commentList">
-            {commentNodes}
-          </div>
-        );
-      }
-    });
+        comments.create({name:this.state.name, text:this.state.text, date: currentDate});
+        router.navigate('', true);
 
-    var CommentBox = React.createClass({
+        this.setState({name:'', text:''});
+      },
+      componentWillMount: function () {
+        console.log('componentWillMount')
+      },
       render: function() {
         return (
           <div className="commentBox">
-            <h1>TypeScript Backbone Require React jQuery - Boilerplate</h1>
-            <CommentList data={this.props.data} />
+            <h1>addComment</h1>
+            <form onSubmit={this.handleSubmit}>
+            <input type="text" value={this.state.name} onChange={this.onChangeName} />
+            <input type="text" value={this.state.text} onChange={this.onChangeText} />
+            <button>Add</button>
+            </form>
           </div>
         );
       }
     });
     
     return {
-        load: function(data) {
+        load: function() {
             React.renderComponent(
-                <CommentBox data={data.models} />,
+                <addComment />,
                 document.getElementById('canvas')
             );
         }
