@@ -11,7 +11,8 @@
             react: "../../bower_components/react/react",
             requirejs: "../../bower_components/requirejs/require",
             localstorage: "../../bower_components/backbone.localstorage/backbone.localStorage",
-            underscore: "../../bower_components/underscore/underscore"
+            underscore: "../../bower_components/underscore/underscore",
+            polyglot: "polyglot"
         },
         shim: {
             jquery: {
